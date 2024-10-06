@@ -1,0 +1,18 @@
+meta {
+  name: verifyOTP
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:6969/v1/auth/verify_otp
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "kartikdd90@gmail.com",
+    "otp": "513288"
+  }
+}

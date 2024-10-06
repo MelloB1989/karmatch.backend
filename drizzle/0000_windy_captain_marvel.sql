@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS "users" (
+	"kid" varchar PRIMARY KEY NOT NULL,
+	"username" varchar,
+	"full_name" varchar,
+	"email" varchar,
+	"phone" varchar,
+	"age" integer,
+	"gender" varchar,
+	"location" varchar,
+	"country" varchar,
+	"languages" json,
+	"primary_language" varchar,
+	"profile_picture" text,
+	"gallery" json,
+	"bio" text,
+	"social_media" json,
+	CONSTRAINT "users_username_unique" UNIQUE("username"),
+	CONSTRAINT "users_email_unique" UNIQUE("email"),
+	CONSTRAINT "users_phone_unique" UNIQUE("phone")
+);

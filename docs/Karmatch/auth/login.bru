@@ -4,8 +4,14 @@ meta {
   seq: 1
 }
 
-get {
-  url: 
-  body: none
+post {
+  url: http://localhost:6969/v1/auth/login
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "email": "kartikdd90@gmail.com"
+  }
 }

@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
+import Auth from "./routes/auth";
 
 const app = express();
-const port = 8084; //7898;
+const port = 6969; //7898;
 
 const allowedOrigins = ["http://localhost:3000"];
 
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/v1/health", (req, res) => {
   res.status(200).json({ health: "ok" });
 });
+app.use("/v1/auth", Auth);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

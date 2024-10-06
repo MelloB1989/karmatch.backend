@@ -1,0 +1,44 @@
+meta {
+  name: register
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:6969/v1/auth/register
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcnRpa2RkOTBAZ21haWwuY29tIiwiaWF0IjoxNzI4MjQzMzM5LCJleHAiOjE3MzA4MzUzMzl9.gB8CrLA5EV2mwQbGyoShzqJJUWXPA_30jybM3_LuwJk
+}
+
+body:json {
+  {
+    "username": "kartikdev90",
+    "full_name": "Kartik Dev",
+    "email": "kartikdd90@gmail.com",
+    "phone": "+1-555-123-4567",
+    "age": 33,
+    "gender": "Male",
+    "location": "New York, NY",
+    "country": "USA",
+    "languages": ["English", "Hindi"],
+    "primary_language": "English",
+    "profile_picture": "https://example.com/profiles/kartikdev90.jpg",
+    "gallery": [
+      "https://example.com/gallery/kartikdev90_1.jpg",
+      "https://example.com/gallery/kartikdev90_2.jpg"
+    ],
+    "bio": "Tech enthusiast, world traveler, and foodie. Love to explore new places and try out different cuisines. Always learning!",
+    "social_media": {
+      "facebook": "https://facebook.com/kartikdev90",
+      "twitter": "https://twitter.com/kartikdev90",
+      "instagram": "https://instagram.com/kartikdev90",
+      "linkedin": "https://linkedin.com/in/kartikdev90",
+      "github": "https://github.com/kartikdev90"
+    }
+  }
+  
+}
