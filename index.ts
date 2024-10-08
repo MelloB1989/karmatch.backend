@@ -1,11 +1,15 @@
 import express from "express";
 import cors from "cors";
 import Auth from "./routes/auth";
+import AI from "./routes/ai";
 
 const app = express();
 const port = 6969; //7898;
 
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://karmatch-expo.avidia.site",
+];
 
 app.use(
   cors({
@@ -30,6 +34,7 @@ app.use("/v1/health", (req, res) => {
   res.status(200).json({ health: "ok" });
 });
 app.use("/v1/auth", Auth);
+app.use("/v1/ai", AI);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

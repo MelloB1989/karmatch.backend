@@ -1,0 +1,21 @@
+meta {
+  name: conversation
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:6969/v1/ai/conversation
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcnRpa2RkOTBAZ21haWwuY29tIiwidXNlcl9pZCI6ImV0dWh0bGxma20iLCJhZ2UiOjE5LCJuYW1lIjoiS2FydGlrIERlc2htdWtoIiwiZ2VuZGVyIjoibWFsZSIsImlhdCI6MTcyODM5MjI4MCwiZXhwIjoxNzMwOTg0MjgwfQ.v8NjsADUnqfv5nmZ4cJEzEvh_lAoB3CpPy_nOuTksE4
+}
+
+body:json {
+  {
+    "message": "Funny ho to aacha hai, mai bhout introvert hoon."
+  }
+}

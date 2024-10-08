@@ -8,6 +8,10 @@ import jwt from "jsonwebtoken";
 
 export const login = async (req: Request, res: Response) => {
   const { email } = req.body;
+  // Check email regex
+  if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    return res.status(400).json({ message: "Invalid email", success: false });
+  }
   try {
     const user = await getUser(email);
     const redis = new Redis({
@@ -18,6 +22,10 @@ export const login = async (req: Request, res: Response) => {
     await redis.set(`karmatch_otp:${email}`, {
       otp: otp.toString(),
       account_exists: !!user,
+      user_id: user?.kid,
+      age: user?.age,
+      name: user?.full_name,
+      gender: user?.gender,
     });
     await send_mail(
       email,
@@ -44,12 +52,26 @@ export const verify_otp = async (req: Request, res: Response) => {
     const stored_otp: {
       otp: string;
       account_exists: boolean;
+      user_id: string;
+      age: number;
+      gender: string;
+      name: string;
     } | null = await redis.get(`karmatch_otp:${email}`);
     if (stored_otp && stored_otp.otp === otp) {
-      const token = jwt.sign({ email }, config.jwt_secret, {
-        expiresIn: "30d",
-      });
-      redis.del(`karmatch_otp:${email}`);
+      const token = jwt.sign(
+        {
+          email,
+          user_id: stored_otp.user_id,
+          age: stored_otp.age,
+          name: stored_otp.name,
+          gender: stored_otp.gender,
+        },
+        config.jwt_secret,
+        {
+          expiresIn: "30d",
+        },
+      );
+      //redis.del(`karmatch_otp:${email}`);
       res.status(200).json({
         message: "OTP verified",
         success: true,

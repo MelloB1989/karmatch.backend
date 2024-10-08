@@ -5,6 +5,7 @@ export interface User {
   email: string;
   phone: string;
   age: number;
+  date_of_birth: string;
   gender: string;
   location: string;
   country: string;
@@ -20,4 +21,24 @@ export interface User {
     linkedin: string;
     github: string;
   };
+}
+
+export interface AiSettings {
+  id: number;
+  user_id: string;
+  ai_name: string;
+  ai_slang: string;
+}
+
+export interface AiQuestions {
+  id: number;
+  question: string;
+  category: string;
+}
+
+export interface AiAnswers {
+  id: number;
+  question_id: number;
+  answer: string;
+  user_id: string;
 }
