@@ -31,21 +31,22 @@ export const users = pgTable("users", {
 });
 
 export const ai_settings = pgTable("ai_settings", {
-  id: integer("id").primaryKey(),
+  id: varchar("id").primaryKey(),
   user_id: varchar("user_id").unique(),
   ai_name: varchar("ai_name"),
   ai_slang: varchar("ai_slang"),
 });
 
 export const ai_questions = pgTable("ai_questions", {
-  id: integer("id").primaryKey(),
+  id: varchar("id").primaryKey(),
   question: text("question"),
   category: varchar("category"),
+  level: integer("level"),
 });
 
 export const ai_answers = pgTable("ai_answers", {
-  id: integer("id").primaryKey(),
-  question_id: integer("question_id"),
+  id: varchar("id").primaryKey(),
+  question_id: varchar("question_id"),
   answer: text("answer"),
   user_id: varchar("user_id"),
 });

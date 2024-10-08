@@ -24,21 +24,22 @@ export interface User {
 }
 
 export interface AiSettings {
-  id: number;
+  id: string;
   user_id: string;
   ai_name: string;
   ai_slang: string;
 }
 
 export interface AiQuestions {
-  id: number;
+  id: string;
   question: string;
   category: string;
+  level: number;
 }
 
 export interface AiAnswers {
-  id: number;
-  question_id: number;
+  id: string;
+  question_id: string;
   answer: string;
   user_id: string;
 }

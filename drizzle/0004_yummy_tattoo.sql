@@ -1,0 +1,1 @@
+ALTER TABLE "ai_questions" ADD COLUMN "level" integer;

@@ -1,0 +1,1 @@
+ALTER TABLE "ai_answers" ALTER COLUMN "question_id" SET DATA TYPE varchar;

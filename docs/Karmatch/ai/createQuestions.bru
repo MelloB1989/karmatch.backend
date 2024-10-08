@@ -1,0 +1,141 @@
+meta {
+  name: createQuestions
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:6969/v1/ai/create_ai_question
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcnRpa2RkOTBAZ21haWwuY29tIiwidXNlcl9pZCI6ImV0dWh0bGxma20iLCJhZ2UiOjE5LCJuYW1lIjoiS2FydGlrIERlc2htdWtoIiwiZ2VuZGVyIjoibWFsZSIsImlhdCI6MTcyODM5MjI4MCwiZXhwIjoxNzMwOTg0MjgwfQ.v8NjsADUnqfv5nmZ4cJEzEvh_lAoB3CpPy_nOuTksE4
+}
+
+body:json {
+  [
+    {
+      "id": "q81",
+      "question": "What do you believe is the meaning of life?",
+      "category": "Philosophy",
+      "level": 4
+    },
+    {
+      "id": "q82",
+      "question": "If you could change one thing about the world, what would it be and why?",
+      "category": "Worldview",
+      "level": 4
+    },
+    {
+      "id": "q83",
+      "question": "What legacy do you want to leave behind?",
+      "category": "Life Goals",
+      "level": 4
+    },
+    {
+      "id": "q84",
+      "question": "Do you believe in fate or free will, and why?",
+      "category": "Philosophy",
+      "level": 4
+    },
+    {
+      "id": "q85",
+      "question": "What do you think happens after we die?",
+      "category": "Beliefs",
+      "level": 4
+    },
+    {
+      "id": "q86",
+      "question": "How do you define your life’s purpose?",
+      "category": "Self-Reflection",
+      "level": 4
+    },
+    {
+      "id": "q87",
+      "question": "What is the most profound spiritual or existential experience you've had?",
+      "category": "Spirituality",
+      "level": 4
+    },
+    {
+      "id": "q88",
+      "question": "What are the fundamental principles you live by?",
+      "category": "Values",
+      "level": 4
+    },
+    {
+      "id": "q89",
+      "question": "If you had to live your life over again, what would you do differently?",
+      "category": "Regrets",
+      "level": 4
+    },
+    {
+      "id": "q90",
+      "question": "What is something you’ve always wanted to understand but never could?",
+      "category": "Curiosity",
+      "level": 4
+    },
+    {
+      "id": "q91",
+      "question": "What do you think is humanity's greatest achievement and why?",
+      "category": "Worldview",
+      "level": 4
+    },
+    {
+      "id": "q92",
+      "question": "What do you fear the most about the future?",
+      "category": "Fears",
+      "level": 4
+    },
+    {
+      "id": "q93",
+      "question": "If you could ask one question and get the absolute truth, what would you ask?",
+      "category": "Truth",
+      "level": 4
+    },
+    {
+      "id": "q94",
+      "question": "What role does love play in the meaning of life for you?",
+      "category": "Philosophy",
+      "level": 4
+    },
+    {
+      "id": "q95",
+      "question": "Do you think people are inherently good or evil?",
+      "category": "Worldview",
+      "level": 4
+    },
+    {
+      "id": "q96",
+      "question": "What do you believe is your greatest contribution to the world so far?",
+      "category": "Personal Accomplishment",
+      "level": 4
+    },
+    {
+      "id": "q97",
+      "question": "If you could know the exact date of your death, would you want to know? Why or why not?",
+      "category": "Existential",
+      "level": 4
+    },
+    {
+      "id": "q98",
+      "question": "What would you do if you found out you had only one year to live?",
+      "category": "Life Goals",
+      "level": 4
+    },
+    {
+      "id": "q99",
+      "question": "What ethical values do you hold most dear, and how do they guide your life?",
+      "category": "Ethics",
+      "level": 4
+    },
+    {
+      "id": "q100",
+      "question": "How do you define true happiness, and do you feel you’ve found it?",
+      "category": "Happiness",
+      "level": 4
+    }
+  ]
+  
+}

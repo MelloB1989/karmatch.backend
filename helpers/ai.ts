@@ -46,6 +46,7 @@ export const updateAiSettings = async (ai_setting: AiSettings) => {
 };
 
 export const createAiQuestion = async (ai_question: AiQuestions) => {
+  ai_question.id = nanoid().toLowerCase();
   try {
     await db.insert(ai_questions).values(ai_question).execute();
   } catch (error) {
@@ -62,6 +63,7 @@ export const getAiQuestions = async () => {
 };
 
 export const createAiAnswer = async (ai_answer: AiAnswers) => {
+  ai_answer.id = nanoid().toLowerCase();
   try {
     await db.insert(ai_answers).values(ai_answer).execute();
   } catch (error) {
@@ -69,12 +71,36 @@ export const createAiAnswer = async (ai_answer: AiAnswers) => {
   }
 };
 
-export const getAiAnswers = async (question_id: number) => {
+export const getAiAnswers = async (question_id: string) => {
   try {
     return await db
       .select()
       .from(ai_answers)
       .where(eq(ai_answers.question_id, question_id))
+      .execute();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getAnsweredQuestionIds = async (user_id: string) => {
+  try {
+    return await db
+      .select()
+      .from(ai_answers)
+      .where(eq(ai_answers.user_id, user_id))
+      .execute();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getQuestionsByLevel = async (level: number) => {
+  try {
+    return await db
+      .select()
+      .from(ai_questions)
+      .where(eq(ai_questions.level, level))
       .execute();
   } catch (error) {
     console.error(error);

@@ -22,6 +22,27 @@
       "when": 1728407161786,
       "tag": "0002_perfect_spitfire",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1728414833281,
+      "tag": "0003_woozy_wallflower",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1728415853796,
+      "tag": "0004_yummy_tattoo",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1728418409698,
+      "tag": "0005_brown_black_queen",
+      "breakpoints": true
     }
   ]
 }
