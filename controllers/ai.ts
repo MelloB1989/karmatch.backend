@@ -56,15 +56,22 @@ export const conversationController = async (req: Request, res: Response) => {
           (question) => !answeredQuestionIds.includes(question.id),
         );
 
-        // If there are any unanswered questions at this level, return the first one
+        // If there are any unanswered questions at this level, choose one randomly
         if (unansweredQuestions.length > 0) {
-          const q = unansweredQuestions[0]; // Return the shortest unanswered question at this level
+          // Generate a random index to choose a random question
+          const randomIndex = Math.floor(
+            Math.random() * unansweredQuestions.length,
+          );
+          const q = unansweredQuestions[randomIndex];
+
+          // Create an entry in the AI answers table with the chosen question
           await createAiAnswer({
             user_id,
             question_id: q.id,
-            answer: "",
+            answer: "", // No answer yet since the question is just being asked
             id: "",
           });
+          console.log("Returning random question:", q);
           return q;
         }
       }
@@ -80,11 +87,11 @@ export const conversationController = async (req: Request, res: Response) => {
   const analyzeUserTraits = async (response: string) => {
     try {
       const analysis = await openai.chat.completions.create({
-        model: "gpt-4",
+        model: "gpt-4o",
         messages: [
           {
             role: "system",
-            content: `You are an AI that analyzes a user's response to extract their traits and interests. Extract the key interests, personality traits, and preferences of the user based on the following answer:`,
+            content: `You are an AI that analyzes a user's response to extract their traits and interests. Extract the key interests, personality traits, and preferences of the user based on the following answer, just output pure traits, just the keywords, nothing extra, don't explain any trait, if you can't extract any trait, just output insufficient data, only mention insufficient data if there are 0 traits`,
           },
           { role: "user", content: response },
         ],
@@ -98,7 +105,7 @@ export const conversationController = async (req: Request, res: Response) => {
     }
   };
 
-  const { message, ai } = req.body;
+  const { message, ai, slang } = req.body;
 
   if (!req.verified) {
     return res.status(401).json({ message: "Unauthorized", success: false });
@@ -120,19 +127,21 @@ export const conversationController = async (req: Request, res: Response) => {
     });
     const context = filteredMatches.map((match) => match.data).join("\n");
 
+    console.log("Context:", context);
+
     // Generate a response using OpenAI and include the new question
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-4o",
       messages: [
         {
           role: "system",
-          content: `You are an AI matchmaker for a dating app. The user prefers to speak in English. You will generate a counter question to engage the user based on their response to a specific question. Previous chat context: ${context} Previos AI question: ${ai}`,
+          content: `You are an female AI matchmaker for a dating app. The user prefers to speak in ${req.verified.language} with ${slang} slag. You will generate a counter question to engage the user based on their response to a specific question. Previous chat context: ${context} Ask next question, mould the question to keep kind: ${newAIQuestion?.question}`,
         },
-        { role: "user", content: message },
         {
           role: "assistant",
-          content: `The next question for the user should be: ${newAIQuestion?.question}`,
+          content: ai,
         },
+        { role: "user", content: message },
       ],
       max_tokens: 2000,
       temperature: 0.2,
@@ -149,8 +158,23 @@ export const conversationController = async (req: Request, res: Response) => {
     });
 
     // Analyze user traits in the background
+    const isInsufficient = (
+      input: string,
+      word: string,
+      minOccurrences: number,
+    ) =>
+      (
+        input
+          .toLowerCase()
+          .match(new RegExp(`\\b${word.toLowerCase()}\\b`, "g")) || []
+      ).length < minOccurrences;
+
     const userTraits = await analyzeUserTraits(message);
-    if (userTraits) {
+    console.log(
+      userTraits,
+      isInsufficient(userTraits ? userTraits : "", "insufficient", 1),
+    );
+    if (userTraits && isInsufficient(userTraits, "insufficient", 1)) {
       await index.upsert({
         id: nanoid(),
         data: `user_traits: ${userTraits}`,

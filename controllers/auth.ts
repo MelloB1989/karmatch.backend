@@ -26,6 +26,7 @@ export const login = async (req: Request, res: Response) => {
       age: user?.age,
       name: user?.full_name,
       gender: user?.gender,
+      language: user?.primary_language,
     });
     await send_mail(
       email,
@@ -56,6 +57,7 @@ export const verify_otp = async (req: Request, res: Response) => {
       age: number;
       gender: string;
       name: string;
+      language: string;
     } | null = await redis.get(`karmatch_otp:${email}`);
     if (stored_otp && stored_otp.otp === otp) {
       const token = jwt.sign(
@@ -65,6 +67,7 @@ export const verify_otp = async (req: Request, res: Response) => {
           age: stored_otp.age,
           name: stored_otp.name,
           gender: stored_otp.gender,
+          language: stored_otp.language,
         },
         config.jwt_secret,
         {
